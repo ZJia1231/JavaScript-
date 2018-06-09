@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WeakMap</title>
+</head>
+
+<body>
+    <script>
+        var weakMap = new WeakMap();
+        var ob1 = { name: 'a' },
+            ob2 = { name: 'b' },
+            ob3 = { name: 'c' };
+
+        weakMap.set(ob1, '1');
+        weakMap.set(ob2, '2');
+        weakMap.set(ob3, '3');
+
+        console.log(weakMap.has(ob1));
+        console.log(weakMap.get(ob3));
+        weakMap.delete(ob2);
+        
+        
+    </script>
+</body>
+
+</html>

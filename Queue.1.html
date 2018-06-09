@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="module">
+        import { Queue } from "./Queue.1.js";
+        let queue = new Queue();
+        queue.enqueue(5);
+        queue.enqueue(8);
+        queue.enqueue(66);
+        console.log('往队列里添加5,8,66后：');
+        queue.print();
+        console.log('队列长度为：' + queue.size());
+        console.log('队首元素为：' + queue.front());
+        queue.dequeue();
+        console.log('删除队首元素后：');
+        queue.print();
+    </script>
+</body>
+
+</html>

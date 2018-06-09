@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="module">
+        import { LinkedList,Node } from "./LinkedList.1.js";
+        let list = new LinkedList();
+        list.append(5);
+        list.append(50);
+        list.append(20);
+        console.log('往链表里添加5,50,20后：');
+        list.print();
+        list.insert(2, 10);
+        console.log('在位置2插入10后：');
+        list.print();
+        console.log('列表的长度为：' + list.size());
+        list.remove(5);
+        console.log('删除5后：');
+        list.print();
+
+    </script>
+</body>
+
+</html>

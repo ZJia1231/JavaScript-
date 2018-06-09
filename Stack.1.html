@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="module">
+        import { Stack } from './Stack.1.js';
+        let stack = new Stack();
+        stack.push(5);
+        stack.push(8);
+        stack.push(66);
+        console.log('往栈里添加5,8,66后：');
+        stack.print();
+        console.log('此时的长度为：' + stack.size());
+        console.log('栈顶元素为：' + stack.peek());
+        stack.pop();
+        console.log('删除栈顶元素后：');
+        stack.print();
+    </script>
+</body>
+
+</html>

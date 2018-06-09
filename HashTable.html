@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function HashTable() {
+            var table = [];
+
+            var loseloseHashCode = function (key) {
+                var hash = 0;
+                for (var i = 0; i < key.length; i++) {
+                    hash += key.charCodeAt();
+                }
+                return hash % 37;
+            }
+
+            this.put = function (key, value) {
+                var position = loseloseHashCode(key);
+                console.log(position + '-' + key);
+                table[position] = value;
+            }
+
+            this.get = function (key) {
+                return table[loseloseHashCode(key)];
+            }
+
+            this.remove = function (key) {
+                table[loseloseHashCode(key)] = undefined;
+            }
+
+            this.print = function () {
+                console.group('table:')
+                for (var i = 0; i < table.length; i++) {
+                    if (table[i] !== undefined) {
+                        console.log(i + ':' + table[i]);
+                    }
+                }
+                console.groupEnd('table');
+            }
+        }
+
+        var hash = new HashTable();
+        hash.put('qwe', '111');
+        console.log(hash.get('qwe'));
+
+        // 如果获取一个不存在的值，就会返回undefined
+        console.log(hash.get('qwee'));
+
+        // 如果存入的key的散列值相同；那么后者的值就会覆盖前者的值；
+        hash.put('asd', 'asd');
+        hash.put('ace', 'ace');
+        hash.print();
+
+    </script>
+</body>
+
+</html>

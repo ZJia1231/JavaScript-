@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 这样定义一个队列，但items却是公共的，这样用户可以直接用数组的其他方法来操作itmes，这并不是我们所希望的。
+        // 我们希望用户只能够用我们Queue类所暴露出去的方法操作items
+        class Queue {
+            constructor() {
+                this.items = [];
+            }
+            enqueue(element) {
+                this.items.push(element);
+            }
+            dequeue() {
+                return this.items.shift();
+            }
+            front() {
+                return this.items[0];
+            }
+            isEmpty() {
+                return this.items.length === 0;
+            }
+            size() {
+                return this.items.length;
+            }
+            print() {
+                console.log(this.items.toString());
+                
+            }
+        }
+
+        let queue = new Queue();
+        queue.enqueue(5);
+        queue.enqueue(8);
+        queue.enqueue(66);
+        console.log('往队列里添加5,8,66后：');
+        queue.print();
+        console.log('队列长度为：' + queue.size());        
+        console.log('队首元素为：'+ queue.front());
+        queue.dequeue();
+        console.log('删除队首元素后：');
+        queue.print();
+        
+         // 这里我们可以直接操作items，这不是我们所希望的。
+        queue.items = [1,2,3,4,5];
+        console.log('直接操作queue.items后：');
+        queue.print();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="module">
+        import { LinkedList,Node } from "./LinkedList.1.js";
+        // 使用分离链接处理相同的散列值
+        class HashTable {
+            constructor() {
+                this.table = [];
+
+            }
+
+            loseloseHashCode(key) {
+                let hash = 0;
+                for (let i = 0; i < key.length; i++) {
+                    hash += key.charCodeAt();
+                }
+                return hash % 37;
+            }
+
+            put(key, value) {
+                let position = this.loseloseHashCode(key);
+                if (this.table[position] == undefined) {
+                    this.table[position] = new LinkedList();
+                }
+                this.table[position].append(new ValuePair(key, value));
+            }
+
+            get(key) {
+                var position = this.loseloseHashCode(key);
+
+                if (this.table[position] !== undefined) {
+                    var current = this.table[position].getHead();
+                    while (current) {
+                        if (current.element.key === key) {
+                            return current.element.value;
+                        }
+                        current = current.next;
+                    }
+                }
+                return undefined;
+            }
+
+            remove(key) {
+                var position = this.loseloseHashCode(key);
+
+                if (this.table[position] !== undefined) {
+                    var current = this.table[position].getHead();
+                    while (current) {
+                        if (current.element.key === key) {
+                            this.table[position].remove(current.element);
+                            if (this.table[position].isEmpty()) {
+                                this.table[position] = undefined;
+                            }
+                            return true;
+                        }
+                        current = current.next;
+                    }
+                }
+                return false;
+            }
+
+            print() {
+                console.group('table:')
+                for (let i = 0; i < this.table.length; i++) {
+                    if (this.table[i] !== undefined) {
+                        this.table[i].print();
+                    }
+                }
+                console.groupEnd('table');
+            }
+        }
+
+        class ValuePair {
+            constructor(key, value) {
+                this.key = key;
+                this.value = value;
+                this.toString = function () {
+                    return '[' + this.key + '-' + this.value + ']';
+                }
+            }
+        }
+
+        let hash = new HashTable();
+        hash.put('qwe', '111');
+        console.log(hash.get('qwe'));
+
+        // 如果获取一个不存在的值，就会返回undefined
+        console.log(hash.get('qwee'));
+
+        // 如果存入的key的散列值相同；那么后者的值就会覆盖前者的值；
+        hash.put('asd', 'asd111');
+        hash.put('ace', 'ace222');
+        hash.print();
+        console.log('删除asd是否成功：'+hash.remove('asd'));
+        console.log('删除asdddd是否成功：' +hash.remove('asdddd'));
+        console.log(hash.get('asd'));
+        console.log(hash.get('ace'));
+
+        hash.print();
+
+    </script>
+</body>
+
+</html>

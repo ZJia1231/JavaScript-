@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 这样定义一个栈类，但items却是公共的，这样用户可以直接用数组的其他方法来操作itmes，这并不是我们所希望的。
+        // 我们希望用户只能够用我们Stack类所暴露出去的方法操作items
+        class Stack {
+            constructor() {
+                this.items = [];
+            }
+            push(element) {
+                this.items.push(element);
+            }
+            pop() {
+                return this.items.pop();
+            }
+            peek() {
+                return this.items[this.items.length - 1];
+            }
+            isEmpty() {
+                return this.items.length === 0;
+            }
+            size() {
+                return this.items.length;
+            }
+            clear() {
+                this.items = [];
+            }
+            print() {
+                console.log(this.items.toString());
+            }
+        }
+
+        let stack = new Stack();
+        stack.push(5);
+        stack.push(8);
+        stack.push(66);
+        console.log('往栈里添加5,8,66后：');
+        stack.print();
+        console.log('此时的长度为：' + stack.size());
+        console.log('栈顶元素为：'+ stack.peek());
+        stack.pop();
+        console.log('删除栈顶元素后：');
+        stack.print();
+        
+        // 这里我们可以直接操作items，这不是我们所希望的。
+        stack.items = [1, 2, 3, 4, 5];
+        console.log('直接操作stack.items后：');
+        stack.print();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Set() {
+            let items = {};
+
+            this.has = function (value) {
+                // return items.hasOwnProperty(value);
+                return value in items;
+            }
+
+            this.add = function (value) {
+                if (!this.has(value)) {
+                    items[value] = value;
+                    return true;
+                }
+                return false;
+            }
+
+            this.remove = function (value) {
+                if (this.has(value)) {
+                    delete items[value];
+                    return true;
+                }
+                return false;
+            }
+
+            this.clear = function () {
+                items = {};
+            }
+
+            this.size = function () {
+                return Object.keys(items).length;
+            }
+
+            this.values = function () {
+                let value = [];
+                for (let i = 0, keys = Object.keys(items); i < keys.length; i++) {
+                    value.push(items[keys[i]]);
+                }
+                return value;
+            }
+
+            this.union = function (otherSet) {
+                let unionSet = new Set();
+
+                let values = this.values();
+                for (let i = 0; i < values.length; i++) {
+                    unionSet.add(values[i]);
+                }
+
+                values = otherSet.values();
+                for (let i = 0; i < values.length; i++) {
+                    unionSet.add(values[i]);
+                }
+                return unionSet;
+            }
+
+            this.intersection = function (otherSet) {
+                let intersectionSet = new Set();
+                let values = this.values();
+                for (let i = 0; i < values.length; i++) {
+                    if (otherSet.has(values[i])) {
+                        intersectionSet.add(values[i])
+                    }
+                }
+                return intersectionSet;
+            }
+            this.difference = function (otherSet) {
+                let differenceSet = new Set();
+                let values = this.values();
+                for (let i = 0; i < values.length; i++) {
+                    if (!otherSet.has(values[i])) {
+                        differenceSet.add(values[i])
+                    }
+                }
+                return differenceSet;
+            }
+
+            this.subset = function (otherSet) {
+                if (this.size > otherSet.size) {
+                    return false;
+                }
+                else {
+                    let values = this.values();
+                    for (let i = 0; i < values.length; i++) {
+                        if (!otherSet.has(values[i])) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+            }
+        }
+
+        console.group('单个Set操作');
+        let set = new Set();
+        set.add(1);
+        set.add(2);
+        set.add(3);
+        console.log('添加1,2,3后：');
+        console.log(set.values());
+        console.log('长度为：' + set.size());
+        set.remove(2);
+        console.log('删除 2 后：' + set.values());
+        console.log('长度为：' + set.size());
+        set.clear();
+        console.log('调用clear方法后：');
+        console.log(set.values());
+        console.groupEnd();
+
+        console.group('并集，交集，差集，验证子集操作');
+        let setA = new Set();
+        setA.add(1);
+        setA.add(2);
+        setA.add(3);
+        setA.add(4);
+        console.log('setA的值：' + setA.values());
+
+        let setB = new Set();
+        setB.add(3);
+        setB.add(4);
+        setB.add(5);
+        setB.add(6);
+        console.log('setB的值：' + setB.values());
+
+        let unionAB = setA.union(setB);
+        console.log('setA和setB的并集：' + unionAB.values());
+
+        let intersectionAB = setA.intersection(setB);
+        console.log('setA和setB的交集：' + intersectionAB.values());
+
+        let differenceAB = setA.difference(setB);
+        console.log('setA和setB的差集(即元素存在于A但不存在于B)：' + differenceAB.values());
+
+        let setC = new Set();
+        setC.add(1);
+        setC.add(2);
+        setC.add(3);
+        setC.add(4);
+        setC.add(5);
+        console.log('setC的值：' + setC.values());
+        console.log('setA是不是setC的子集：' + setA.subset(setC));
+
+
+        console.groupEnd();
+    </script>
+</body>
+
+</html>
